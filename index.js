@@ -1,14 +1,30 @@
-const number = prompt('Ingrese un numero');
+function promptValues() {
+    let amount = parseFloat(prompt("Ingrese un monto"));
+    while(isNaN(amount)) {
+        amount = parseFloat(prompt("El monto debe ser un número. Ingrese nuevamente un valor."));
+    }
 
-for (let index = 0; index < parseInt(number); index++) {
-    console.log('hola')
+    let quota = parseInt(prompt('¿Cuantas cuotas?'));
+    while(isNaN(quota)) {
+        quota = parseFloat(prompt("El monto debe ser un número. Ingrese nuevamente la cantidad de cuotas."));
+    }
+
+    return { amount, quota };
 }
 
-let text = prompt('Ingrese un texto o "ESC" para salir.');
-let result = '';
-while (text !== 'ESC') {
-    result += text;
+function paymentCalc() {    
+    const values = promptValues();
+    
+    const payment = values.amount / values.quota;
+    alert(payment);
+}
 
-    console.log(result);
-    text = prompt('Ingrese un texto o "ESC" para salir.');
+paymentCalc();
+const continueMessage = 'Precione ESC para salir, de lo contrario el programa continuara';
+let shouldContinue = prompt(continueMessage);
+
+while (shouldContinue !== 'ESC') {
+    paymentCalc();
+
+    shouldContinue = prompt(continueMessage);
 }
