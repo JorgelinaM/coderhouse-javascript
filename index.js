@@ -1,3 +1,11 @@
+const user = {};
+user.name = prompt('Ingrese su nombre');
+user.age = prompt('Ingrese su edad');
+user.address = prompt('Ingrese su dirección');
+
+alert('Hola, sus datos ingresados son => Nombre: ' + user.name + ' - Edad: ' + user.age + ' - Dirección: ' + user.address);
+
+
 const books = [];
 
 function addBook() {
@@ -39,33 +47,38 @@ while(shouldContinueBooks !== 'ESC') {
 }
 
 
-// function promptValues() {
-//     let amount = parseFloat(prompt("Ingrese un monto"));
-//     while(isNaN(amount)) {
-//         amount = parseFloat(prompt("El monto debe ser un número. Ingrese nuevamente un valor."));
-//     }
+const searchBook = prompt('¿Desea buscar si existe el libro en el sistema? Escriba el nombre del libro a continuación')
+const doesBookExist = books.includes(searchBook);
+if (doesBookExist) alert('El libro ' + searchBook + ' se encuentra en el sistema');
+else alert('Lo sentimos. El libro ' + searchBook + ' no se encuentra en el sistema')
 
-//     let quota = parseInt(prompt('¿Cuantas cuotas?'));
-//     while(isNaN(quota)) {
-//         quota = parseFloat(prompt("El monto debe ser un número. Ingrese nuevamente la cantidad de cuotas."));
-//     }
+function promptValues() {
+    let amount = parseFloat(prompt("Ingrese el monto a pagar de la subscripción"));
+    while(isNaN(amount)) {
+        amount = parseFloat(prompt("El monto debe ser un número. Ingrese nuevamente un valor."));
+    }
 
-//     return { amount, quota };
-// }
+    let quota = parseInt(prompt('¿Cuantas cuotas?'));
+    while(isNaN(quota)) {
+        quota = parseFloat(prompt("El monto debe ser un número. Ingrese nuevamente la cantidad de cuotas."));
+    }
 
-// function paymentCalc() {    
-//     const values = promptValues();
+    return { amount, quota };
+}
+
+function paymentCalc() {    
+    const values = promptValues();
     
-//     const payment = values.amount / values.quota;
-//     alert(payment);
-// }
+    const payment = values.amount / values.quota;
+    alert('El valor a pagar por mes es $' + payment);
+}
 
-// paymentCalc();
-// const continueMessage = 'Precione ESC para salir, de lo contrario el programa continuara';
-// let shouldContinue = prompt(continueMessage);
+paymentCalc();
+const continueMessage = 'Precione ESC para salir, de lo contrario el programa continuara';
+let shouldContinue = prompt(continueMessage);
 
-// while (shouldContinue !== 'ESC') {
-//     paymentCalc();
+while (shouldContinue !== 'ESC') {
+    paymentCalc();
 
-//     shouldContinue = prompt(continueMessage);
-// }
+    shouldContinue = prompt(continueMessage);
+}
