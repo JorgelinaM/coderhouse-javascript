@@ -3,8 +3,21 @@ user.name = prompt('Ingrese su nombre');
 user.age = prompt('Ingrese su edad');
 user.address = prompt('Ingrese su dirección');
 
-alert('Hola, sus datos ingresados son => Nombre: ' + user.name + ' - Edad: ' + user.age + ' - Dirección: ' + user.address);
+const h1 = document.getElementsByTagName('h1')[0];
 
+h1.innerText = h1.innerText + ' ' + user.name;
+
+const header = document.querySelector('header');
+const ul = document.createElement('ul');
+const ageLi = document.createElement('li');
+const addressLi = document.createElement('li');
+
+ageLi.innerText = `Edad: ${user.age}`;
+addressLi.innerText = `Dirección: ${user.address}`;
+
+ul.append(ageLi);
+ul.append(addressLi);
+header.append(ul);
 
 const books = [];
 
