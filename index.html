@@ -13,21 +13,23 @@
     <h1>Bienvenido</h1>
   </header>
   <main>
-    <section>
-      <div>
-        <h2>Ingrese libros para vender</h2>
-        <label for="book">Nombre</label>
-        <input id="book" type="text">
-        <button class="js-add-books">Agregar</button>
-      </div>
-      <div>
-        <h3>Libros en lista:</h3>
-          <ul class="js-books">
-
-          </ul>
-      </div>
+    <section class="s-book-list">
+      <h2>Libros en lista:</h2>
+        <ul class="js-books">
+          <li><span>Harry Potter</span> <button data-id="0">Agregar</button></li>
+          <li><span>Lord Of The Rings</span> <button data-id="1">Agregar</button></li>
+          <li><span>Chuleta de Figuras</span> <button data-id="2">Agregar</button></li>
+          <li><span>Afraid to be Afraid</span> <button data-id="3">Agregar</button></li>
+          <li><span>Si la vida nos da limones</span> <button data-id="4">Agregar</button></li>
+        </ul>
     </section>
-  </main>
+    <section class="s-cart">
+      <h2>Carrito</h2>
+        <ul class="js-cart">
+          
+        </ul>
+    </section>
+    </main>
   <script src="index.js"></script>
 </body>
 </html>
