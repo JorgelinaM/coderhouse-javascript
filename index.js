@@ -2,11 +2,10 @@ const booksList = document.querySelector('.js-books');
 const addButtons = booksList.querySelectorAll('button');
 const cart = document.querySelector('.js-cart');
 
-
-function addBookToCart(event) {
-    const bookName = event.target.previousElementSibling.innerText;
+function addBookToCart({ target }) {
+    const bookName = target.previousElementSibling.innerText;
     const book = {
-        id: event.target.getAttribute('data-id'),
+        id: target.getAttribute('data-id'),
         quantity: 1,
         title: bookName,
     };
@@ -14,10 +13,10 @@ function addBookToCart(event) {
     renderCart(savedBook);
 }
 
-function removeBook(book) {
+function removeBook({ id }) {
     const storageBooks = localStorage.getItem('books');
     parsedBooks = JSON.parse(storageBooks);
-    const index = parsedBooks.findIndex((parsedBook) => parsedBook.id === book.id);
+    const index = parsedBooks.findIndex((parsedBook) => parsedBook.id === id);
     parsedBooks.splice(index, 1);
     localStorage.setItem('books', JSON.stringify(parsedBooks));
 }
@@ -47,16 +46,17 @@ function setLocalStorageItem(book) {
 
 
 function renderCart(book) {
-    console.log('book', book)
+    const { title, quantity, id } = book;
+
     const existingLi = document.getElementById(book.id);
     if (existingLi) {
-        existingLi.firstElementChild.innerText = book.title + ': ' + book.quantity;
+        existingLi.firstElementChild.innerText = `${title}: ${quantity}`;
     } else {
         const li = document.createElement('li');
         const span = document.createElement('span');
-        span.innerText = book.title + ': ' + book.quantity;
+        span.innerText = `${title}: ${quantity}`;
         li.append(span);
-        li.id = book.id;
+        li.id = id;
         
         const removeButton = document.createElement('button');
         removeButton.innerText = 'Borrar';
@@ -65,13 +65,12 @@ function renderCart(book) {
         
         cart.append(li);
 
-        removeButton.addEventListener('click', function() {
+        removeButton.addEventListener('click', () => {
             removeBook(book);
             li.remove();
         })
     }
 }
-
 
 const storageBooks = localStorage.getItem('books');
 
