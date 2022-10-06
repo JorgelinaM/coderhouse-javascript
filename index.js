@@ -1,6 +1,7 @@
 const booksList = document.querySelector('.js-books');
 const addButtons = booksList.querySelectorAll('button');
 const cart = document.querySelector('.js-cart');
+const paymentForm = document.querySelector('.js-payment');
 
 function addBookToCart({ target }) {
     const bookName = target.previousElementSibling.innerText;
@@ -68,8 +69,11 @@ function renderCart(book) {
         removeButton.addEventListener('click', () => {
             removeBook(book);
             li.remove();
+            const storageBooks = JSON.parse(localStorage.getItem('books'));
+            storageBooks.length > 0 && paymentForm.setAttribute('hidden', true); 
         })
     }
+    paymentForm.removeAttribute('hidden')
 }
 
 const storageBooks = localStorage.getItem('books');
@@ -85,4 +89,14 @@ for (const button of addButtons) {
     button.addEventListener('click', addBookToCart)
 }
 
+
+paymentForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    Swal.fire({
+        title: 'Pago Completado!',
+        text: 'Se enviaran los libros a su domicilio',
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      })
+})
 
