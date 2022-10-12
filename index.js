@@ -3,6 +3,33 @@ const addButtons = booksList.querySelectorAll('button');
 const cart = document.querySelector('.js-cart');
 const paymentForm = document.querySelector('.js-payment');
 
+async function fetchBooks() {
+    const response = await fetch('./books.json');
+    const books = await response.json();
+
+    return books;
+}
+
+async function renderBooks() {
+    const books = await fetchBooks();
+    books.forEach(book => {
+        const li = document.createElement('li');
+        const span = document.createElement('span');
+        const button = document.createElement('button');
+        
+        span.innerText = book.title;
+        button.innerText = 'Agregar';
+        button.setAttribute('data-id', book.id);
+        button.addEventListener('click', addBookToCart)
+
+        li.append(span);
+        li.append(button);
+        booksList.append(li);
+    })
+}
+
+renderBooks();
+
 function addBookToCart({ target }) {
     const bookName = target.previousElementSibling.innerText;
     const book = {
@@ -70,7 +97,8 @@ function renderCart(book) {
             removeBook(book);
             li.remove();
             const storageBooks = JSON.parse(localStorage.getItem('books'));
-            storageBooks.length > 0 && paymentForm.setAttribute('hidden', true); 
+            console.log('storageBooks', storageBooks.length);
+            storageBooks.length === 0 && paymentForm.setAttribute('hidden', true); 
         })
     }
     paymentForm.removeAttribute('hidden')
@@ -84,11 +112,6 @@ if (storageBooks) {
         renderCart(book);
     };
 }
-
-for (const button of addButtons) {
-    button.addEventListener('click', addBookToCart)
-}
-
 
 paymentForm.addEventListener('submit', (event) => {
     event.preventDefault();
