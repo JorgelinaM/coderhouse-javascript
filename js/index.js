@@ -152,7 +152,8 @@ paymentForm.addEventListener('submit', (event) => {
     event.preventDefault();
     
     const storageBooks = JSON.parse(localStorage.getItem('books'));
-    if (storageBooks && storageBooks.length > 0) {
+    if (storageBooks && storageBooks.length > 0) {  
+        localStorage.clear('books');
         const items = cart.querySelectorAll('li');
         items.forEach(item => item.remove());
         cartDrawer.classList.remove('s-cart--open');
